@@ -9,6 +9,7 @@ Usage:
     python main.py --config config.yaml --only eval
     python main.py --config config.yaml --only plots
     python main.py --config config.yaml --only xai
+    python main.py --experiment loso_fm   # LOSO seizure prediction with foundation models
 """
 
 import argparse
@@ -32,7 +33,16 @@ def main():
         choices=["train", "eval", "plots", "xai"],
         help="Run only a specific pipeline phase",
     )
+    parser.add_argument(
+        "--experiment", type=str, default="classic", choices=["classic", "loso_fm"],
+        help="classic = config.yaml pipeline; loso_fm = loso_foundation_model_prediction.py",
+    )
     args = parser.parse_args()
+
+    if args.experiment == "loso_fm":
+        import loso_foundation_model_prediction
+        loso_foundation_model_prediction.run()
+        return
 
     exp = Experiment(config_path=args.config)
 
