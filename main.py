@@ -9,7 +9,8 @@ Usage:
     python main.py --config config.yaml --only eval
     python main.py --config config.yaml --only plots
     python main.py --config config.yaml --only xai
-    python main.py --experiment loso_fm   # LOSO seizure prediction with foundation models
+    python main.py --experiment loso_fm       # LOSO seizure prediction with foundation models
+    python main.py --experiment lora_tabicl   # LoRA fine-tuning of TabICL (best loso_fm variant)
 """
 
 import argparse
@@ -34,14 +35,20 @@ def main():
         help="Run only a specific pipeline phase",
     )
     parser.add_argument(
-        "--experiment", type=str, default="classic", choices=["classic", "loso_fm"],
-        help="classic = config.yaml pipeline; loso_fm = loso_foundation_model_prediction.py",
+        "--experiment", type=str, default="classic", choices=["classic", "loso_fm", "lora_tabicl"],
+        help="classic = config.yaml pipeline; loso_fm = loso_foundation_model_prediction.py; "
+             "lora_tabicl = finetune_lora_tabicl.py",
     )
     args = parser.parse_args()
 
     if args.experiment == "loso_fm":
         import loso_foundation_model_prediction
         loso_foundation_model_prediction.run()
+        return
+
+    if args.experiment == "lora_tabicl":
+        import finetune_lora_tabicl
+        finetune_lora_tabicl.run()
         return
 
     exp = Experiment(config_path=args.config)

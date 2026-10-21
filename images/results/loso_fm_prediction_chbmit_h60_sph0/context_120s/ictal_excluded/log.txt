@@ -1,0 +1,117 @@
+[2026-10-19 05:29:38] === Variant: EEG 120s · ictal excluded → images/results/loso_fm_prediction_chbmit_h60_sph0/context_120s/ictal_excluded
+[2026-10-19 05:29:57] [EEG 120s · ictal=excluded] Fold 1/23 chb01: 10000 context rows (338 positives) × 600 columns
+[2026-10-19 05:32:53]   tabicl: EEG 120s with 10000 context rows, ROC=0.518
+[2026-10-19 05:33:19]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.552
+[2026-10-19 05:33:38]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 05:35:25]   mitra: EEG 120s with 625 context rows, ROC=0.509
+[2026-10-19 05:35:44] [EEG 120s · ictal=excluded] Fold 2/23 chb02: 10000 context rows (316 positives) × 600 columns
+[2026-10-19 05:38:31]   tabicl: EEG 120s with 10000 context rows, ROC=0.565
+[2026-10-19 05:38:56]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.506
+[2026-10-19 05:39:15]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 05:40:54]   mitra: EEG 120s with 625 context rows, ROC=0.452
+[2026-10-19 05:41:13] [EEG 120s · ictal=excluded] Fold 3/23 chb03: 10000 context rows (360 positives) × 600 columns
+[2026-10-19 05:44:14]   tabicl: EEG 120s with 10000 context rows, ROC=0.686
+[2026-10-19 05:44:41]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.582
+[2026-10-19 05:44:59]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 05:46:55]   mitra: EEG 120s with 625 context rows, ROC=0.602
+[2026-10-19 05:47:13] [EEG 120s · ictal=excluded] Fold 4/23 chb04: 10000 context rows (354 positives) × 600 columns
+[2026-10-19 05:50:15]   tabicl: EEG 120s with 10000 context rows, ROC=0.592
+[2026-10-19 05:50:42]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.435
+[2026-10-19 05:51:00]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 05:52:57]   mitra: EEG 120s with 625 context rows, ROC=0.631
+[2026-10-19 05:53:16] [EEG 120s · ictal=excluded] Fold 5/23 chb05: 10000 context rows (341 positives) × 600 columns
+[2026-10-19 05:56:44]   tabicl: EEG 120s with 10000 context rows, ROC=0.634
+[2026-10-19 05:57:15]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.599
+[2026-10-19 05:57:34]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 05:59:36]   mitra: EEG 120s with 625 context rows, ROC=0.544
+[2026-10-19 05:59:55] [EEG 120s · ictal=excluded] Fold 6/23 chb06: 10000 context rows (323 positives) × 600 columns
+[2026-10-19 06:02:52]   tabicl: EEG 120s with 10000 context rows, ROC=0.682
+[2026-10-19 06:03:18]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.597
+[2026-10-19 06:03:37]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:05:11]   mitra: EEG 120s with 625 context rows, ROC=0.522
+[2026-10-19 06:05:30] [EEG 120s · ictal=excluded] Fold 7/23 chb07: 10000 context rows (350 positives) × 600 columns
+[2026-10-19 06:08:15]   tabicl: EEG 120s with 10000 context rows, ROC=0.817
+[2026-10-19 06:08:40]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.819
+[2026-10-19 06:08:59]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:10:36]   mitra: EEG 120s with 625 context rows, ROC=0.307
+[2026-10-19 06:10:55] [EEG 120s · ictal=excluded] Fold 8/23 chb08: 10000 context rows (322 positives) × 600 columns
+[2026-10-19 06:13:41]   tabicl: EEG 120s with 10000 context rows, ROC=0.301
+[2026-10-19 06:14:06]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.387
+[2026-10-19 06:14:25]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:16:03]   mitra: EEG 120s with 625 context rows, ROC=0.600
+[2026-10-19 06:16:23] [EEG 120s · ictal=excluded] Fold 9/23 chb09: 10000 context rows (345 positives) × 600 columns
+[2026-10-19 06:18:42]   tabicl: EEG 120s with 10000 context rows, ROC=0.666
+[2026-10-19 06:19:03]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.587
+[2026-10-19 06:19:21]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:20:45]   mitra: EEG 120s with 625 context rows, ROC=0.435
+[2026-10-19 06:21:05] [EEG 120s · ictal=excluded] Fold 10/23 chb10: 10000 context rows (338 positives) × 600 columns
+[2026-10-19 06:23:53]   tabicl: EEG 120s with 10000 context rows, ROC=0.636
+[2026-10-19 06:24:18]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.616
+[2026-10-19 06:24:36]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:26:10]   mitra: EEG 120s with 625 context rows, ROC=0.750
+[2026-10-19 06:26:28] [EEG 120s · ictal=excluded] Fold 11/23 chb11: 10000 context rows (353 positives) × 600 columns
+[2026-10-19 06:29:39]   tabicl: EEG 120s with 10000 context rows, ROC=0.677
+[2026-10-19 06:30:09]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.733
+[2026-10-19 06:30:27]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:32:13]   mitra: EEG 120s with 625 context rows, ROC=0.230
+[2026-10-19 06:32:32] [EEG 120s · ictal=excluded] Fold 12/23 chb12: 10000 context rows (293 positives) × 600 columns
+[2026-10-19 06:35:44]   tabicl: EEG 120s with 10000 context rows, ROC=0.468
+[2026-10-19 06:36:13]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.494
+[2026-10-19 06:36:32]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:38:21]   mitra: EEG 120s with 625 context rows, ROC=0.373
+[2026-10-19 06:38:40] [EEG 120s · ictal=excluded] Fold 13/23 chb13: 10000 context rows (334 positives) × 600 columns
+[2026-10-19 06:41:40]   tabicl: EEG 120s with 10000 context rows, ROC=0.379
+[2026-10-19 06:42:07]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.592
+[2026-10-19 06:42:26]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:44:19]   mitra: EEG 120s with 625 context rows, ROC=0.333
+[2026-10-19 06:44:38] [EEG 120s · ictal=excluded] Fold 14/23 chb14: 10000 context rows (278 positives) × 600 columns
+[2026-10-19 06:47:57]   tabicl: EEG 120s with 10000 context rows, ROC=0.626
+[2026-10-19 06:48:27]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.654
+[2026-10-19 06:48:45]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:50:34]   mitra: EEG 120s with 625 context rows, ROC=0.568
+[2026-10-19 06:50:53] [EEG 120s · ictal=excluded] Fold 15/23 chb16: 10000 context rows (338 positives) × 600 columns
+[2026-10-19 06:53:53]   tabicl: EEG 120s with 10000 context rows, ROC=0.473
+[2026-10-19 06:54:20]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.410
+[2026-10-19 06:54:38]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 06:56:24]   mitra: EEG 120s with 625 context rows, ROC=0.568
+[2026-10-19 06:56:44] [EEG 120s · ictal=excluded] Fold 16/23 chb17: 10000 context rows (356 positives) × 600 columns
+[2026-10-19 06:59:43]   tabicl: EEG 120s with 10000 context rows, ROC=0.628
+[2026-10-19 07:00:09]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.758
+[2026-10-19 07:00:27]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 07:02:17]   mitra: EEG 120s with 625 context rows, ROC=0.576
+[2026-10-19 07:02:37] [EEG 120s · ictal=excluded] Fold 17/23 chb18: 10000 context rows (280 positives) × 600 columns
+[2026-10-19 07:05:28]   tabicl: EEG 120s with 10000 context rows, ROC=0.506
+[2026-10-19 07:05:54]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.523
+[2026-10-19 07:06:12]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 07:07:52]   mitra: EEG 120s with 625 context rows, ROC=0.616
+[2026-10-19 07:08:11] [EEG 120s · ictal=excluded] Fold 18/23 chb19: 10000 context rows (365 positives) × 600 columns
+[2026-10-19 07:11:10]   tabicl: EEG 120s with 10000 context rows, ROC=0.429
+[2026-10-19 07:11:37]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.292
+[2026-10-19 07:11:55]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 07:13:38]   mitra: EEG 120s with 625 context rows, ROC=0.096
+[2026-10-19 07:13:58] [EEG 120s · ictal=excluded] Fold 19/23 chb20: 10000 context rows (283 positives) × 600 columns
+[2026-10-19 07:16:42]   tabicl: EEG 120s with 10000 context rows, ROC=0.360
+[2026-10-19 07:17:07]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.243
+[2026-10-19 07:17:25]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 07:18:56]   mitra: EEG 120s with 625 context rows, ROC=0.382
+[2026-10-19 07:19:15] [EEG 120s · ictal=excluded] Fold 20/23 chb21: 10000 context rows (358 positives) × 600 columns
+[2026-10-19 07:22:06]   tabicl: EEG 120s with 10000 context rows, ROC=0.640
+[2026-10-19 07:22:31]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.669
+[2026-10-19 07:22:50]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 07:24:27]   mitra: EEG 120s with 625 context rows, ROC=0.635
+[2026-10-19 07:24:46] [EEG 120s · ictal=excluded] Fold 21/23 chb22: 10000 context rows (356 positives) × 600 columns
+[2026-10-19 07:27:30]   tabicl: EEG 120s with 10000 context rows, ROC=0.583
+[2026-10-19 07:27:55]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.507
+[2026-10-19 07:28:14]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 07:29:47]   mitra: EEG 120s with 625 context rows, ROC=0.633
+[2026-10-19 07:30:06] [EEG 120s · ictal=excluded] Fold 22/23 chb23: 10000 context rows (351 positives) × 600 columns
+[2026-10-19 07:32:51]   tabicl: EEG 120s with 10000 context rows, ROC=0.552
+[2026-10-19 07:33:16]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.645
+[2026-10-19 07:33:34]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 07:35:08]   mitra: EEG 120s with 625 context rows, ROC=0.549
+[2026-10-19 07:35:28] [EEG 120s · ictal=excluded] Fold 23/23 chb24: 10000 context rows (309 positives) × 600 columns
+[2026-10-19 07:38:11]   tabicl: EEG 120s with 10000 context rows, ROC=0.584
+[2026-10-19 07:38:36]   tabpfnv3: EEG 120s with 10000 context rows, ROC=0.473
+[2026-10-19 07:38:55]   tabfm: skipped, EEG 120s does not work (out of GPU memory)
+[2026-10-19 07:40:22]   mitra: EEG 120s with 625 context rows, ROC=0.542
+[2026-10-19 07:40:23] Report: images/results/loso_fm_prediction_chbmit_h60_sph0/context_120s/ictal_excluded/loso_report.md
