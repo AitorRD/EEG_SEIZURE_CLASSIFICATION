@@ -1,0 +1,11 @@
+rule,weight
+T8-P8__partial_autocorrelation__lag_4 <= -0.61,0.0030477782139683254
+FP1-F7__ar_coefficient__coeff_3__k_10 > 0.52,0.0026209073566794867
+P4-O2__has_duplicate_min <= -0.17,-0.0023685133226688843
+T8-P8-0__ar_coefficient__coeff_4__k_10 <= -0.57,-0.0021762232506763635
+FP1-F3__ar_coefficient__coeff_4__k_10 > 0.78,-0.0020211155208808068
+-0.10 < P7-T7__permutation_entropy__dimension_7__tau_1 <= 0.31,-0.0019534307927491336
+-0.68 < FT9-FT10__autocorrelation__lag_7 <= 1.09,-0.0017994612267476728
+FZ-CZ__partial_autocorrelation__lag_4 <= -0.68,0.0016769385102660497
+FT10-T8__ar_coefficient__coeff_3__k_10 > 0.47,0.0016718047218837984
+P3-O1__partial_autocorrelation__lag_4 <= -0.68,0.001328922152996814

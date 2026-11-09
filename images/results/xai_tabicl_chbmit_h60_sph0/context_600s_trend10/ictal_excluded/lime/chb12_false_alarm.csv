@@ -1,0 +1,11 @@
+rule,weight
+P4-O2__has_duplicate_max__trend > -0.02,0.004483106948768216
+P4-O2__value_count__value_0 <= -0.17,-0.004393297893311351
+P4-O2__has_duplicate_max <= -0.18,-0.0037962816900286305
+C3-P3__ratio_beyond_r_sigma__r_3 <= -0.75,-0.0028854403868236655
+P4-O2__lempel_ziv_complexity__bins_100 > 0.51,0.002819542929920435
+P4-O2__has_duplicate_min__trend > -0.02,0.0027646895662497162
+P7-T7__has_duplicate_max <= -0.37,0.00270111845869134
+FT9-FT10__partial_autocorrelation__lag_4 <= -0.72,0.002685043438131409
+P4-O2__has_duplicate_min <= -0.18,-0.0022490862423488575
+T7-P7__partial_autocorrelation__lag_9 <= -0.32,-0.002145948684616098

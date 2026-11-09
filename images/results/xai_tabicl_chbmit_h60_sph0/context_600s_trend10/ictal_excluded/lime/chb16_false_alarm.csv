@@ -1,0 +1,11 @@
+rule,weight
+FZ-CZ__ar_coefficient__coeff_4__k_10 <= -0.51,0.002661620165613749
+"P7-O1__fft_aggregated__aggtype_""kurtosis"" <= -0.53",0.002616611110029829
+T8-P8-1__partial_autocorrelation__lag_4 <= -0.64,0.0026013498666519093
+FP1-F3__ar_coefficient__coeff_6__k_10 <= -0.57,0.002598257940385969
+P4-O2__partial_autocorrelation__lag_1 > 0.82,0.002572149852612199
+F4-C4__partial_autocorrelation__lag_3 > 0.65,0.002265380094697208
+FZ-CZ__partial_autocorrelation__lag_4 <= -0.69,0.0022414075455255656
+F3-C3__partial_autocorrelation__lag_9 > 0.30,-0.001944561389953429
+T8-P8__partial_autocorrelation__lag_3 > 0.69,0.0013986920438781656
+P4-O2__value_count__value_0 <= -0.17,-0.00109861418003272

@@ -1,0 +1,11 @@
+rule,weight
+C3-P3__ratio_beyond_r_sigma__r_3 > 0.53,0.003154319719419507
+FP1-F7__friedrich_coefficients__coeff_2__m_3__r_30 > 0.51,0.002054273964392675
+C3-P3__ratio_beyond_r_sigma__r_1 <= -0.44,0.001975463405337234
+FP2-F4__ar_coefficient__coeff_2__k_10 > 0.72,-0.0019130492505567253
+P7-T7__has_duplicate_min <= -0.37,0.0019028095397377151
+P7-T7__range_count__max_1000000000000.0__min_0 > -0.26,0.001716523283984418
+P7-T7__has_duplicate_max <= -0.37,0.0016380500146841888
+"0.51 < FP2-F4__augmented_dickey_fuller__attr_""usedlag""__autolag_""AIC"" <= 0.87",0.0016096313723862911
+P7-T7__count_above__t_0 > -0.26,0.0014618423547526833
+-0.75 < FP2-F4__number_peaks__n_1 <= 0.23,-0.0013865867900805869

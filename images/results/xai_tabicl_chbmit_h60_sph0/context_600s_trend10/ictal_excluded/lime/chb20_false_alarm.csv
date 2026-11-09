@@ -1,0 +1,11 @@
+rule,weight
+P4-O2__value_count__value_0 <= -0.16,-0.005043592287844421
+P7-T7__has_duplicate_min <= -0.36,0.0038537412837050555
+T7-P7__benford_correlation <= 0.42,0.0035896460240747254
+P4-O2__value_count__value_0__trend <= 0.09,0.003368620942525059
+"F8-T8__fft_coefficient__attr_""angle""__coeff_80 > 0.87",0.0032880101075256265
+-1.64 < P8-O2__large_standard_deviation__r_0.1 <= 0.61,-0.002865730874283592
+FT9-FT10__index_mass_quantile__q_0.9 <= 0.25,0.00242472922473485
+FP2-F8__partial_autocorrelation__lag_8 <= -0.48,-0.0022057348452256
+"F8-T8__augmented_dickey_fuller__attr_""usedlag""__autolag_""AIC"" > 0.79",0.002147245572120048
+T7-P7__partial_autocorrelation__lag_9 <= -0.33,-0.0020832564733257826

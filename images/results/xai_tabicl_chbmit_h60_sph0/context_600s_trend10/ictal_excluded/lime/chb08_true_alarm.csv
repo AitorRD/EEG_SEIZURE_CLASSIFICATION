@@ -1,0 +1,11 @@
+rule,weight
+F4-C4__partial_autocorrelation__lag_3 > 0.64,0.0025156006501080995
+T8-P8-1__partial_autocorrelation__lag_4 <= -0.72,0.002039253494845192
+P4-O2__has_duplicate_max <= -0.18,-0.0019002552541560497
+C3-P3__autocorrelation__lag_9 > 0.58,0.001479333622980912
+P3-O1__partial_autocorrelation__lag_4 > 0.62,-0.001439837110140571
+C3-P3__ar_coefficient__coeff_4__k_10 > 0.71,0.0014323798665727531
+T8-P8-1__ar_coefficient__coeff_3__k_10 > 0.43,0.001401312766076951
+P4-O2__has_duplicate_min <= -0.18,-0.0013893181155621769
+T7-FT9__autocorrelation__lag_6 > 0.25,-0.0008269948116905025
+P4-O2__value_count__value_0 <= -0.17,-0.0003147797043951408

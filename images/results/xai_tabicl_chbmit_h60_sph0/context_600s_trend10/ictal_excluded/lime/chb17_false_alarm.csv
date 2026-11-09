@@ -1,0 +1,11 @@
+rule,weight
+"P7-T7__fft_aggregated__aggtype_""kurtosis"" <= -0.45",0.0035320172833306625
+P3-O1__partial_autocorrelation__lag_4 <= -0.72,0.0032285780440112904
+CZ-PZ__permutation_entropy__dimension_7__tau_1 <= -0.22,-0.0024009376650191818
+CZ-PZ__permutation_entropy__dimension_4__tau_1 <= -0.15,0.0021402636859177877
+CZ-PZ__permutation_entropy__dimension_6__tau_1 <= -0.27,-0.0019175646051772348
+FT9-FT10__autocorrelation__lag_9 <= -0.95,0.001885525142350421
+FP1-F3__partial_autocorrelation__lag_8 <= -0.37,0.0017725196455818137
+P7-O1__permutation_entropy__dimension_7__tau_1 > 0.81,0.0017339364702587052
+T8-P8__partial_autocorrelation__lag_4 <= -0.66,0.0016548758068097378
+P7-O1__number_cwt_peaks__n_1 > 0.73,0.0015029775419398029

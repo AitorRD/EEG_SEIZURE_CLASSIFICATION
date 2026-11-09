@@ -1,0 +1,11 @@
+rule,weight
+FP1-F3__partial_autocorrelation__lag_4 <= -0.74,0.0035846766538873316
+P3-O1__partial_autocorrelation__lag_4 <= -0.74,0.0029428973945857854
+T8-P8__partial_autocorrelation__lag_4 <= -0.62,0.0028864646051982006
+0.34 < P7-T7__permutation_entropy__dimension_7__tau_1 <= 0.67,0.002127354063085146
+FT9-FT10__autocorrelation__lag_5 <= -0.95,0.0020734786745389123
+FT9-FT10__autocorrelation__lag_7 <= -0.97,0.0018708010476291672
+C3-P3__partial_autocorrelation__lag_4 <= -0.66,-0.0018143435365453211
+F7-T7__ar_coefficient__coeff_3__k_10 <= -0.56,-0.0014743959193735336
+T7-FT9__partial_autocorrelation__lag_4 <= -0.64,0.0014359044723300813
+P4-O2__value_count__value_0 <= -0.16,-0.0012442690630202805

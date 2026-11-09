@@ -1,0 +1,11 @@
+rule,weight
+P7-T7__has_duplicate_min <= -0.36,0.004058894159743571
+P8-O2__large_standard_deviation__r_0.1 <= -1.64,0.0036592984706180246
+T7-P7__benford_correlation <= 0.28,0.0034072279864132346
+T7-P7__ratio_beyond_r_sigma__r_2.5 <= -0.54,0.0026051060613873594
+FP2-F8__ar_coefficient__coeff_7__k_10 > 0.40,0.0025327359672701346
+P7-T7__range_count__max_1000000000000.0__min_0 > -0.24,0.002457822362912573
+"0.49 < FP2-F4__augmented_dickey_fuller__attr_""usedlag""__autolag_""AIC"" <= 0.86",0.002314861144975642
+0.19 < P4-O2__lempel_ziv_complexity__bins_100 <= 0.58,0.00218066878811606
+FZ-CZ__partial_autocorrelation__lag_3 > 0.52,0.0019419078335513541
+P4-O2__value_count__value_0 <= -0.16,-0.001574934954164955

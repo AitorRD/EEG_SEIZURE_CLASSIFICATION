@@ -1,0 +1,11 @@
+rule,weight
+P7-T7__permutation_entropy__dimension_4__tau_1 > 0.59,0.0030309372138999516
+CZ-PZ__permutation_entropy__dimension_6__tau_1 > 0.61,0.0025044905737014404
+"CZ-PZ__fft_aggregated__aggtype_""kurtosis"" > 0.26",-0.0022176092383148728
+FP2-F8__lempel_ziv_complexity__bins_2 > 0.80,0.002197690018062248
+P7-T7__permutation_entropy__dimension_7__tau_1 > 0.62,0.002091949244209708
+CZ-PZ__permutation_entropy__dimension_5__tau_1 > 0.59,0.0020728727722592244
+FZ-CZ__partial_autocorrelation__lag_6 > 0.46,0.0020643363695618446
+CZ-PZ__number_peaks__n_1 > 0.74,-0.0017268211626948675
+P7-T7__number_cwt_peaks__n_1 > 0.62,0.0016780653832252938
+F8-T8__lempel_ziv_complexity__bins_2 > 0.75,0.0014867536371171665

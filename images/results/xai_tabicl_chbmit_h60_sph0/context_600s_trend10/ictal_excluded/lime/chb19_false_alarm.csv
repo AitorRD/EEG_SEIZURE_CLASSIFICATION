@@ -1,0 +1,11 @@
+rule,weight
+T7-P7__number_cwt_peaks__n_5 > 0.62,0.0022471799832867794
+FP2-F4__ar_coefficient__coeff_4__k_10 > 0.37,0.002141175121492903
+0.37 < P7-T7__permutation_entropy__dimension_7__tau_1 <= 0.66,0.001841998555649174
+T8-P8__partial_autocorrelation__lag_4 <= -0.67,0.0018146625887099162
+"0.61 < CZ-PZ__augmented_dickey_fuller__attr_""usedlag""__autolag_""AIC"" <= 0.83",0.0015411102097909286
+0.39 < P7-T7__permutation_entropy__dimension_4__tau_1 <= 0.59,0.00147901046741918
+"0.47 < P7-T7__augmented_dickey_fuller__attr_""usedlag""__autolag_""AIC"" <= 0.77",0.0013262360401969792
+T7-P7__ratio_beyond_r_sigma__r_1 > 0.74,0.001219605483963475
+T7-P7__count_below_mean > 0.53,0.0009497797629877372
+P7-O1__ar_coefficient__coeff_3__k_10 <= -0.53,0.0009133254303859828

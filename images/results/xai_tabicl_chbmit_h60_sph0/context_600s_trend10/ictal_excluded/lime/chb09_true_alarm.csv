@@ -1,0 +1,11 @@
+rule,weight
+FT9-FT10__ar_coefficient__coeff_4__k_10 <= -0.51,0.001800624559697474
+FP2-F4__ar_coefficient__coeff_2__k_10 <= -0.41,-0.0017243847865311827
+P8-O2__ar_coefficient__coeff_3__k_10 > 0.43,0.0017026939373665164
+F4-C4__ar_coefficient__coeff_3__k_10 > 0.22,0.0016082309692193367
+P4-O2__percentage_of_reoccurring_values_to_all_values <= -0.17,-0.001453028861116841
+P7-T7__has_duplicate_min <= -0.35,0.0012999707015970401
+FT10-T8__ar_coefficient__coeff_4__k_10 <= -0.60,0.00125172162165221
+P7-T7__has_duplicate_max <= -0.35,0.0010441121072361685
+P7-T7__partial_autocorrelation__lag_4 <= -0.59,0.00101303229157328
+P4-O2__value_count__value_0 <= -0.16,-0.00027984213871834593

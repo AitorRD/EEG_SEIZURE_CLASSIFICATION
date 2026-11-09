@@ -1,0 +1,11 @@
+rule,weight
+T7-FT9__partial_autocorrelation__lag_9 <= -0.52,0.0026105907591187673
+T8-P8-0__ar_coefficient__coeff_4__k_10 > 0.72,0.0023656058725396996
+C3-P3__partial_autocorrelation__lag_5 <= -0.47,0.0021038906284444447
+FZ-CZ__autocorrelation__lag_9 <= -0.82,0.0019615344732252815
+FP1-F3__ar_coefficient__coeff_4__k_10 > 0.81,-0.0018120934518630343
+P7-T7__partial_autocorrelation__lag_4 <= -0.63,0.00180576555814801
+0.35 < P7-T7__permutation_entropy__dimension_7__tau_1 <= 0.64,0.0016660913175396846
+P4-O2__has_duplicate_min <= -0.17,-0.0016410735461497021
+0.38 < P7-T7__permutation_entropy__dimension_4__tau_1 <= 0.58,0.0015358621124182774
+"F8-T8__augmented_dickey_fuller__attr_""usedlag""__autolag_""AIC"" <= -0.79",-0.001234751008169027

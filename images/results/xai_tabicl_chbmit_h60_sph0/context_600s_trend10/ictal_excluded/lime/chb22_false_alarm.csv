@@ -1,0 +1,11 @@
+rule,weight
+P7-T7__has_duplicate_min <= -0.36,0.0016561447901157246
+P7-T7__has_duplicate_max <= -0.36,0.0015063391583435676
+FP1-F7__ar_coefficient__coeff_3__k_10 > 0.43,0.0014857955538421057
+FP2-F4__ar_coefficient__coeff_3__k_10 > 0.05,0.0014463790536560247
+P4-O2__percentage_of_reoccurring_datapoints_to_all_datapoints <= -0.17,-0.001402893883765295
+P7-T7__permutation_entropy__dimension_6__tau_1 > 0.66,0.0013730051901861605
+FP2-F4__ar_coefficient__coeff_4__k_10 > 0.38,0.0013336318003476927
+P7-T7__partial_autocorrelation__lag_1 <= -0.34,0.0012265574658826817
+P7-T7__number_cwt_peaks__n_1 > 0.65,-0.0009362418778244522
+P4-O2__percentage_of_reoccurring_values_to_all_values <= -0.17,-0.0007965070542788181

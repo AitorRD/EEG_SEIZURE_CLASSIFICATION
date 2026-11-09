@@ -10,6 +10,7 @@ Run from main.py:  python main.py --experiment loso_fm
 
 import gc
 import math
+import re
 import warnings
 from datetime import datetime
 from pathlib import Path
@@ -31,6 +32,13 @@ HORIZON_SEC = 60.0
 SPH_SEC = 0.0
 CONTEXT_SECONDS = [30, 60, 120]
 K_FEATURES = 200
+# How the EEG before each window is summarised (always causal, previous windows of the same segment):
+#   stats        K features + change vs. mean of the previous windows + their std   -> 3K columns
+#   change_index K-1 features + RMS distance of the window to the previous mean    -> K columns
+#   trend10      K-10 features + least-squares slope of the 10 best features       -> K columns
+HISTORY_MODES = ["stats", "change_index", "trend10"]
+HISTORY_MODE = "stats"
+N_TREND = 10
 MAX_CONTEXT_ROWS = 10000
 PREDICT_CHUNK_ROWS = 2000   # TabFM materialises every ensemble member × all query rows in RAM at once
 N_VAL_PATIENTS = 3
@@ -109,7 +117,7 @@ def f_scores(X, y):
         return np.nan_to_num(f_classif(X, y)[0], nan=-np.inf)
 
 
-def select_columns(train, block_size=1000):
+def select_columns(train, k=K_FEATURES, block_size=1000):
     y = np.concatenate([p["y"][p["usable"]] for p in train])
     n_columns = train[0]["X"].shape[1]
     scores = np.empty(n_columns)
@@ -118,7 +126,7 @@ def select_columns(train, block_size=1000):
         # scoring constant columns as 3.4e38 so they win the selection.
         block = np.concatenate([p["X"][p["usable"], start:start + block_size] for p in train]).astype(np.float64)
         scores[start:start + block_size] = f_scores(fill_missing(block, column_medians(block)), y)
-    return np.argsort(scores)[-K_FEATURES:]
+    return np.argsort(scores)[-k:]   # ascending: the best feature is last
 
 
 def history_windows(context_seconds):
@@ -136,17 +144,71 @@ def add_history(X, segment, n_previous):
     return np.hstack([X, change, np.nan_to_num(recent_std)])
 
 
-def design(train, others, n_previous):
-    columns = select_columns(train)
+def change_index(Z, segment, n_previous):
+    """RMS distance, over the standardised features, between each window and the mean of
+    its previous windows: one number saying how far the EEG has moved from its recent state."""
+    previous = pd.DataFrame(Z).groupby(segment).shift(1)
+    baseline = previous.groupby(segment).rolling(n_previous, min_periods=1).mean().droplevel(0).sort_index()
+    return np.nan_to_num(np.sqrt(np.mean((Z - baseline.to_numpy()) ** 2, axis=1)))[:, None]
+
+
+def trend(Z, segment, n_previous):
+    """Least-squares slope of each column over the window and its previous windows."""
+    def rolling_sum(values):
+        frame = pd.DataFrame(values).groupby(segment).rolling(n_previous + 1, min_periods=1).sum()
+        return frame.droplevel(0).sort_index().to_numpy()
+
+    t = pd.Series(segment).groupby(segment).cumcount().to_numpy(np.float64)[:, None]
+    n, s_t, s_tt = rolling_sum(np.ones_like(t)), rolling_sum(t), rolling_sum(t * t)
+    s_x, s_tx = rolling_sum(Z), rolling_sum(t * Z)
+    denominator = n * s_tt - s_t ** 2   # 0 when only the current window exists
+    return np.where(denominator > 0, (n * s_tx - s_t * s_x) / np.where(denominator > 0, denominator, 1), 0.0)
+
+
+def with_history(X, Z, segment, n_previous):
+    if n_previous == 0:
+        return X
+    if HISTORY_MODE == "stats":
+        return add_history(X, segment, n_previous)
+    if HISTORY_MODE == "change_index":
+        return np.hstack([X, change_index(Z, segment, n_previous)])
+    if HISTORY_MODE == "trend10":
+        return np.hstack([X, trend(Z[:, -N_TREND:], segment, n_previous)])
+    raise ValueError(HISTORY_MODE)
+
+
+def column_names(feature_names, columns, n_previous):
+    """Names of the columns design() returns, in order."""
+    base = [str(n) for n in feature_names[columns]]
+    if n_previous == 0:
+        return base
+    if HISTORY_MODE == "stats":
+        return base + [f"{n}__change" for n in base] + [f"{n}__std" for n in base]
+    if HISTORY_MODE == "change_index":
+        return base + ["change_index"]
+    return base + [f"{n}__trend" for n in base[-N_TREND:]]
+
+
+def design(train, others, n_previous, return_columns=False):
+    n_summary = {"stats": 0, "change_index": 1, "trend10": N_TREND}[HISTORY_MODE]
+    columns = select_columns(train, K_FEATURES - n_summary)
     medians = column_medians(np.concatenate([p["X"][:, columns][p["usable"]] for p in train]))
+    # change_index / trend10 compare features of different scales, so they work on features
+    # standardised with the training patients (the stats mode does not need it).
+    z_scaler = None
+    if HISTORY_MODE != "stats":
+        z_scaler = StandardScaler().fit(np.concatenate(
+            [fill_missing(p["X"][:, columns], medians)[p["usable"]] for p in train]).astype(np.float64))
 
     def build(patient):
         X = fill_missing(patient["X"][:, columns], medians)
-        return add_history(X, patient["segment"], n_previous)[patient["usable"]]
+        Z = None if z_scaler is None else z_scaler.transform(X.astype(np.float64))
+        return with_history(X, Z, patient["segment"], n_previous)[patient["usable"]]
 
     X_train = np.concatenate([build(p) for p in train])
     scaler = StandardScaler().fit(X_train)
-    return scaler.transform(X_train), [scaler.transform(build(p)) for p in others]
+    out = scaler.transform(X_train), [scaler.transform(build(p)) for p in others]
+    return (*out, columns) if return_columns else out
 
 
 def context(X, y, rng):
@@ -326,7 +388,7 @@ def write_markdown(metrics, ictal_label, context_seconds, out_dir):
     confusion_totals = metrics.groupby("model", sort=False)[counts].sum()
 
     setup = (f"Onset within ({SPH_SEC:g}, {SPH_SEC + HORIZON_SEC:g}] s · "
-             f"EEG seen per prediction {context_seconds} s · "
+             f"EEG seen per prediction {context_seconds} s · history summary {HISTORY_MODE} · "
              f"k={K_FEATURES} · context {MAX_CONTEXT_ROWS} rows · "
              f"threshold max-F1 on {N_VAL_PATIENTS} val patients · "
              f"ictal windows: {ictal_label} "
@@ -414,19 +476,30 @@ def report(ictal_label, context_seconds, out_dir):
     log(f"Report: {out_dir / 'loso_report.md'}")
 
 
+def variant_dir(context_seconds, ictal_label, history=None):
+    history = history or HISTORY_MODE
+    suffix = "" if history == "stats" else f"_{history}"
+    return OUTPUT_DIR / f"context_{context_seconds}s{suffix}" / f"ictal_{ictal_label}"
+
+
 def write_overall_summary():
+    # Every variant on disk, not just this run's, so a partial run keeps the others in the summary.
     rows = []
-    for context_seconds in CONTEXT_SECONDS:
-        for ictal_label in ICTAL_LABELS:
-            out_dir = OUTPUT_DIR / f"context_{context_seconds}s" / f"ictal_{ictal_label}"
-            if not (out_dir / "loso_fold_metrics.csv").exists():
-                continue
-            metrics = pd.read_csv(out_dir / "loso_fold_metrics.csv")
-            means = metrics.groupby("model", sort=False)[TABLE_METRICS + ["Context rows"]].mean()
-            means.insert(0, "folds", metrics.groupby("model", sort=False).size())
-            means.insert(0, "ictal", ictal_label)
-            means.insert(0, "EEG seconds", context_seconds)
-            rows.append(means.reset_index())
+    variants = []
+    for d in OUTPUT_DIR.glob("context_*s*/ictal_*"):
+        name = re.fullmatch(r"context_(\d+)s(?:_(\w+))?", d.parent.name)
+        if name and (d / "loso_fold_metrics.csv").exists():
+            variants.append((int(name[1]), name[2] or "stats", d.name[len("ictal_"):]))
+    ictal_order = ["excluded", "0", "1"]
+    for context_seconds, history, ictal_label in sorted(
+            variants, key=lambda v: (v[0], HISTORY_MODES.index(v[1]), ictal_order.index(v[2]))):
+        metrics = pd.read_csv(variant_dir(context_seconds, ictal_label, history) / "loso_fold_metrics.csv")
+        means = metrics.groupby("model", sort=False)[TABLE_METRICS + ["Context rows"]].mean()
+        means.insert(0, "folds", metrics.groupby("model", sort=False).size())
+        means.insert(0, "ictal", ictal_label)
+        means.insert(0, "history", history)
+        means.insert(0, "EEG seconds", context_seconds)
+        rows.append(means.reset_index())
     if rows:
         summary = pd.concat(rows, ignore_index=True)
         summary.to_csv(OUTPUT_DIR / "summary_all_variants.csv", index=False)
@@ -434,17 +507,22 @@ def write_overall_summary():
         log(f"Summary of all variants: {OUTPUT_DIR / 'summary_all_variants.md'}")
 
 
-def run():
+def run(models=None, context_seconds=None, ictal_labels=None, history=None):
+    global MODELS, CONTEXT_SECONDS, ICTAL_LABELS, HISTORY_MODE
+    MODELS = models or MODELS
+    CONTEXT_SECONDS = context_seconds or CONTEXT_SECONDS
+    ICTAL_LABELS = ictal_labels or ICTAL_LABELS
+    HISTORY_MODE = history or HISTORY_MODE
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     LOG_FILES[:] = [OUTPUT_DIR / "experiment.log"]
-    log(f"Start: models {MODELS} · EEG seconds {CONTEXT_SECONDS} · ictal {ICTAL_LABELS}")
+    log(f"Start: models {MODELS} · EEG seconds {CONTEXT_SECONDS} · ictal {ICTAL_LABELS} · history {HISTORY_MODE}")
     pids = sorted(f.name.split("_")[0] for f in FEATURES_DIR.glob("chb*_ov0.25.parquet"))
     raw = {pid: load_patient(pid) for pid in pids}
     log(f"Loaded {len(pids)} patients")
 
     for context_seconds in CONTEXT_SECONDS:
         for ictal_label in ICTAL_LABELS:
-            out_dir = OUTPUT_DIR / f"context_{context_seconds}s" / f"ictal_{ictal_label}"
+            out_dir = variant_dir(context_seconds, ictal_label)
             out_dir.mkdir(parents=True, exist_ok=True)
             LOG_FILES[:] = [OUTPUT_DIR / "experiment.log", out_dir / "log.txt"]
             log(f"=== Variant: EEG {context_seconds}s · ictal {ictal_label} → {out_dir}")

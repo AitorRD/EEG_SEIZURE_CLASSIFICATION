@@ -1,0 +1,11 @@
+rule,weight
+FP1-F7__friedrich_coefficients__coeff_2__m_3__r_30 > 0.51,0.0025128268550104467
+T7-P7__partial_autocorrelation__lag_4 <= -0.67,0.0020990406164977777
+"F3-C3__fft_coefficient__attr_""angle""__coeff_15 > 0.87",0.00208122749175369
+T8-P8-0__partial_autocorrelation__lag_7 <= -0.40,0.0020736195831943674
+-0.79 < C3-P3__ratio_beyond_r_sigma__r_3 <= -0.27,-0.0017149557288597605
+P4-O2__number_cwt_peaks__n_5 <= -0.16,-0.0015265876098477962
+F4-C4__ar_coefficient__coeff_2__k_10 > 0.64,-0.0015254309489688897
+FZ-CZ__partial_autocorrelation__lag_3 <= -0.56,-0.0014861306186363483
+"0.51 < FP2-F4__augmented_dickey_fuller__attr_""usedlag""__autolag_""AIC"" <= 0.87",0.0014187134487712912
+P7-O1__permutation_entropy__dimension_7__tau_1 <= -0.51,-0.0013899020313117105

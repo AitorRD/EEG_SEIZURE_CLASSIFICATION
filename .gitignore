@@ -47,6 +47,8 @@ pipeline.md
 /images/results/csv/*
 /images/F3/*
 /images/results/loso/predictions
+/images/results/**/adapters/
+/images/results/loso_fm_lora_tabicl_*/**/training/
 __pycache__/
 *.py[cod]
 *$py.class
@@ -54,5 +56,7 @@ __pycache__/
 
 *.parquet
 *.log
+*.logexport
+/images/results/**/log.txt
 /logs/*
 !/logs/.gitkeep

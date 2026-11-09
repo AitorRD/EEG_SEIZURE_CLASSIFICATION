@@ -1,0 +1,11 @@
+rule,weight
+P7-T7__permutation_entropy__dimension_6__tau_1 > 0.66,0.0017893818449557658
+P7-T7__has_duplicate_max <= -0.36,0.0016917205714913756
+P7-T7__permutation_entropy__dimension_4__tau_1 > 0.59,0.0015897509396104377
+P7-T7__permutation_entropy__dimension_7__tau_1 > 0.64,0.0015216989940008345
+P7-T7__permutation_entropy__dimension_5__tau_1 > 0.63,0.0014866831152416191
+FP1-F7__ar_coefficient__coeff_3__k_10 > 0.44,0.001458122607722776
+FP2-F8__partial_autocorrelation__lag_4 <= -0.69,0.0013454363378800466
+P7-T7__has_duplicate_min <= -0.36,0.0012187920410567231
+C4-P4__ar_coefficient__coeff_3__k_10 <= -0.52,-0.001183689915855663
+FP1-F3__autocorrelation__lag_7 > 0.94,-0.0010128829419565623

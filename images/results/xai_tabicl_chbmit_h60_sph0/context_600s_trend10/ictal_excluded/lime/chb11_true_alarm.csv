@@ -1,0 +1,11 @@
+rule,weight
+T8-P8__ar_coefficient__coeff_3__k_10 > 0.48,0.0023047655777464443
+T7-FT9__partial_autocorrelation__lag_4 <= -0.63,0.0017109454132640917
+P4-O2__has_duplicate_max <= -0.17,-0.001592132838655545
+-0.12 < P4-O2__ar_coefficient__coeff_3__k_10__trend <= -0.01,-0.0015909297125406869
+P8-O2__autocorrelation__lag_8 > 0.37,-0.0015029531042259111
+FP1-F3__ar_coefficient__coeff_4__k_10 <= -0.70,0.0013524414709983417
+T8-P8__autocorrelation__lag_4 > 0.70,-0.0012892504457585681
+T7-P7__symmetry_looking__r_0.8500000000000001 <= -1.78,0.0010780462830343538
+T7-P7__number_peaks__n_10 <= -1.72,-0.0010610265973293967
+FP1-F3__ar_coefficient__coeff_6__k_10 <= -0.59,0.0008403620478704007

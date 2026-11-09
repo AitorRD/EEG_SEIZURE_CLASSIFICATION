@@ -1,0 +1,11 @@
+rule,weight
+CZ-PZ__permutation_entropy__dimension_6__tau_1 > 0.66,0.002769328479998758
+P7-O1__permutation_entropy__dimension_7__tau_1 > 0.82,0.0022473051738971443
+P4-O2__has_duplicate_min <= -0.18,-0.0019336668025216179
+C3-P3__partial_autocorrelation__lag_4 > 0.71,0.0018123095846961923
+FZ-CZ__partial_autocorrelation__lag_4 > 0.71,-0.0014946527991342245
+CZ-PZ__permutation_entropy__dimension_5__tau_1 > 0.62,0.0014181156440626788
+T7-FT9__permutation_entropy__dimension_5__tau_1 > 0.65,0.0013680583796871631
+P7-O1__ar_coefficient__coeff_10__k_10 > 0.45,0.001314171734773807
+T7-FT9__permutation_entropy__dimension_7__tau_1 > 0.68,0.0012429738110675424
+P7-T7__longest_strike_below_mean <= -0.64,-0.0009515947646010148

@@ -1,0 +1,11 @@
+rule,weight
+P4-O2__has_duplicate_min <= -0.17,-0.0023616243597485848
+P7-T7__has_duplicate_max <= -0.36,0.0021244086636950633
+P7-T7__permutation_entropy__dimension_4__tau_1 > 0.57,0.002039740779439831
+P7-T7__permutation_entropy__dimension_6__tau_1 > 0.64,0.001891753821807442
+P7-T7__permutation_entropy__dimension_7__tau_1 > 0.62,0.0018346670507528619
+P4-O2__has_duplicate_max <= -0.17,-0.0016485813842293147
+P8-O2__number_cwt_peaks__n_1 > 0.65,0.0016264516455440038
+P7-T7__permutation_entropy__dimension_5__tau_1 > 0.61,0.001579938668326985
+FP2-F8__partial_autocorrelation__lag_4 <= -0.73,0.0015452372296235434
+"P3-O1__agg_autocorrelation__f_agg_""median""__maxlag_40 > 0.65",-0.0014676260367192237
