@@ -67,12 +67,17 @@ def log(*msg):
 # Data
 # ===========================================================================
 def load_patient(pid):
-    windows = pd.read_parquet(FEATURES_DIR / "preictal_meta" / f"{pid}_ov0.25.parquet")
+    windows, patient = load_windows(pid)
     features = pd.read_parquet(FEATURES_DIR / f"{pid}_ov0.25.parquet").set_index("window_id")
 
     X = features.drop(columns=["patient_id", "label"]).loc[windows["window_id"]].to_numpy(np.float32)
     X[np.logical_not(np.isfinite(X))] = np.nan
+    return {"X": X, **patient}
 
+
+def load_windows(pid):
+    """Window metadata and labels, without the tsfresh features."""
+    windows = pd.read_parquet(FEATURES_DIR / "preictal_meta" / f"{pid}_ov0.25.parquet")
     time_to_onset = windows["tto"].to_numpy()
     seizure_soon = (time_to_onset > SPH_SEC) & (time_to_onset <= SPH_SEC + HORIZON_SEC)
     during_seizure = windows["ictal"].to_numpy()
@@ -81,8 +86,7 @@ def load_patient(pid):
     new_session = (windows["session"] != windows["session"].shift()).to_numpy()
     onset_id = windows["session"] + "@" + (windows["t_end"] + time_to_onset).round(1).astype(str)
 
-    return {
-        "X": X,
+    return windows, {
         "seizure_soon": seizure_soon,
         "ictal": during_seizure,
         "valid": np.logical_not(crosses_gap) & (time_to_onset > SPH_SEC),

@@ -15,6 +15,7 @@ Usage:
     python main.py --experiment lora_tabicl --context 300 --ictal excluded
     python main.py --experiment loso_fm --models tabicl --context 300 --ictal excluded --history change_index
     python main.py --experiment xai_tabicl --context 600 --ictal excluded --history trend10
+    python main.py --experiment chronos2 --context 30 --ictal excluded --device cuda:1
 """
 
 import argparse
@@ -39,9 +40,11 @@ def main():
         help="Run only a specific pipeline phase",
     )
     parser.add_argument(
-        "--experiment", type=str, default="classic", choices=["classic", "loso_fm", "lora_tabicl", "xai_tabicl"],
+        "--experiment", type=str, default="classic",
+        choices=["classic", "loso_fm", "lora_tabicl", "xai_tabicl", "chronos2"],
         help="classic = config.yaml pipeline; loso_fm = loso_foundation_model_prediction.py; "
-             "lora_tabicl = finetune_lora_tabicl.py; xai_tabicl = xai_tabicl.py (SHAP, LIME, topomap)",
+             "lora_tabicl = finetune_lora_tabicl.py; xai_tabicl = xai_tabicl.py (SHAP, LIME, topomap); "
+             "chronos2 = finetune_chronos2.py (raw EEG, linear probe + LoRA)",
     )
     parser.add_argument(
         "--models", nargs="+", default=None,
@@ -61,7 +64,12 @@ def main():
     )
     parser.add_argument(
         "--patients", nargs="+", default=None,
-        help="xai_tabicl only: explain just these test patients, e.g. chb01 chb05 (default: all folds)",
+        help="xai_tabicl: explain just these test patients; chronos2: run just these folds, e.g. to split "
+             "them across GPUs (default: all folds)",
+    )
+    parser.add_argument(
+        "--device", default=None,
+        help="chronos2 only: torch device, e.g. cuda:1 (default: cuda)",
     )
     args = parser.parse_args()
     ictal = [i if i == "excluded" else int(i) for i in args.ictal] if args.ictal else None
@@ -72,7 +80,7 @@ def main():
                                              ictal_labels=ictal, history=args.history)
         return
 
-    if args.experiment in ("lora_tabicl", "xai_tabicl"):
+    if args.experiment in ("lora_tabicl", "xai_tabicl", "chronos2"):
         if (args.context and len(args.context) > 1) or (ictal and len(ictal) > 1):
             parser.error(f"{args.experiment} takes a single --context and --ictal value")
 
@@ -80,6 +88,13 @@ def main():
         import xai_tabicl
         xai_tabicl.run(context_seconds=args.context[0] if args.context else None,
                        ictal_label=ictal[0] if ictal else None, history=args.history, patients=args.patients)
+        return
+
+    if args.experiment == "chronos2":
+        import finetune_chronos2
+        finetune_chronos2.run(context_seconds=args.context[0] if args.context else None,
+                              ictal_label=ictal[0] if ictal else None, device=args.device,
+                              patients=args.patients)
         return
 
     if args.experiment == "lora_tabicl":

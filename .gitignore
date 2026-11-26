@@ -60,3 +60,8 @@ __pycache__/
 /images/results/**/log.txt
 /logs/*
 !/logs/.gitkeep
+
+# Chronos-2: raw EEG cache and per-patient frozen embeddings
+/data/processed/chbmit_raw_npy/
+/images/results/loso_chronos2_*/**/embeddings/
+/images/results/loso_chronos2_*/**/training/
