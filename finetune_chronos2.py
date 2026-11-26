@@ -72,6 +72,7 @@ ELECTRODE_ALIASES = {"O1": ["O1", "01"]}
 PROBE_C = [1e-3, 1e-2, 1e-1, 1.0]   # inverse L2 strength, chosen on the validation patients
 SIGMA_FLOOR = 0.1                    # feature std floor, as a fraction of the median feature std
 
+LORA_HEAD_C = 1e-3              # probe C used to initialise the LoRA head (strong L2 -> moderate logits)
 LORA_RANK = 8
 LORA_ALPHA = 16
 LORA_TARGETS = (".q", ".k", ".v", ".o")   # MHA projections of the time and group attentions
@@ -308,19 +309,21 @@ def standardisation(X):
     return mu.astype(np.float32), sigma.astype(np.float32)
 
 
-def fit_probe(X_tr, y_tr, X_val, y_val):
+def fit_probe(X_tr, y_tr, X_val, y_val, Cs=PROBE_C):
+    """Logistic regression for every C. Returns the C with the best validation score, the head
+    of every C and the probability function of the best one."""
     mu, sigma = standardisation(X_tr)
     Z_tr, Z_val = (X_tr - mu) / sigma, (X_val - mu) / sigma
-    best = None
-    for C in PROBE_C:
+    best, heads = None, {}
+    for C in Cs:
         clf = LogisticRegression(C=C, class_weight="balanced", max_iter=2000).fit(Z_tr, y_tr)
         s = score(y_val, clf.predict_proba(Z_val)[:, 1])
         log(f"    probe C={C:g}: val {EARLY_STOP_METRIC}={s:.4f}")
+        heads[C] = {"mu": mu, "sigma": sigma, "w": clf.coef_[0], "b": clf.intercept_[0]}
         if best is None or s > best[0]:
             best = (s, C, clf)
     _, C, clf = best
-    head = {"mu": mu, "sigma": sigma, "w": clf.coef_[0], "b": clf.intercept_[0]}
-    return C, head, lambda X: clf.predict_proba((X - mu) / sigma)[:, 1]
+    return C, heads, lambda X: clf.predict_proba((X - mu) / sigma)[:, 1]
 
 
 def init_head(model, head):
@@ -483,8 +486,13 @@ def run_loso(data, patients=None):
         if model is None:
             model = build_model()
         emb = {p: patient_embeddings(model, p, data[p]) for p in pids}
-        C, head, probe = fit_probe(np.concatenate([emb[p] for p in train_pids]), y_tr,
-                                   np.concatenate([emb[p] for p in val_pids]), y_val)
+        # Probe result: C chosen on validation. LoRA start: always the strongly regularised probe
+        # (a weakly regularised one gives logits so large that the loss saturates and LoRA gets
+        # no gradient). Once the probe result exists only the LoRA head needs fitting.
+        Cs = sorted(set(PROBE_C) | {LORA_HEAD_C}) if not done["chronos2_probe"] else [LORA_HEAD_C]
+        C, heads, probe = fit_probe(np.concatenate([emb[p] for p in train_pids]), y_tr,
+                                    np.concatenate([emb[p] for p in val_pids]), y_val, Cs)
+        head = heads[LORA_HEAD_C]
         if not done["chronos2_probe"]:
             thr = P.best_f1_threshold(y_val, probe(np.concatenate([emb[p] for p in val_pids])))
             save_fold("chronos2_probe", test_pid, test, probe(emb[test_pid]), thr, len(y_tr))
@@ -508,7 +516,7 @@ def run_loso(data, patients=None):
         finally:
             ft = None
             P.release_gpu()
-        torch.save({"state": state, "probe_C": C, "mu": head["mu"], "sigma": head["sigma"]},OUTPUT_DIR / "adapters" / f"{test_pid}.pt")
+        torch.save({"state": state, "head_C": LORA_HEAD_C, "mu": head["mu"], "sigma": head["sigma"]}, OUTPUT_DIR / "adapters" / f"{test_pid}.pt")
         history.assign(best_step=best_step).to_csv(OUTPUT_DIR / "training" / f"{test_pid}.csv", index=False)
         save_fold("chronos2_lora", test_pid, test, proba, thr, len(y_tr))
 
